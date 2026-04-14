@@ -10,10 +10,69 @@
 }
 
 body{
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    /* height: 100vh; */
     background-image: linear-gradient(to right bottom, #18a2c9, #72c3bd);
 }
+
+@media (max-width: 480px){
+
+    .form-contact__linha {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form-contact__col-a {
+        display: none;
+    }
+
+    .form-contact__col-b {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: flex-start; /* IMPORTANTE */
+    }
+
+    .form-contact__input {
+        width: 100% !important;
+    }
+
+    .bt12 {
+        width: 100%;
+    }
+
+    .form-header__text{
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+
+
+/* Ajuste para telas menores que 768px */
+@media (max-width: 488px) {
+ 
+    .form-contact__input
+    {
+        width: 100%;
+    }
+
+    .bt12
+    {
+        width: 100%
+    }
+
+    .form-contact__col-a
+    {
+        display: none
+    }
+
+}
+
+
+
 
 .container{
     width: 100%;
@@ -49,6 +108,8 @@ body{
     padding: 20px;
 }
 
+
+
 .form-contact__linha{
     display: flex;
     align-items: center;
@@ -73,11 +134,11 @@ body{
    
 }
 
-.form-contact__col-c{
+/* .form-contact__col-c{
     width: 10%;
     height: 100%;
     
-}
+} */
 
 
 
@@ -89,7 +150,7 @@ body{
 .form-contact__input{
     padding: 5px 10px;
     height: 35px;
-    color: white;
+    color: black;
     border: none;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
     outline: none;
@@ -114,4 +175,54 @@ body{
 }
 .form-contact__input--inteiro{
     width: 100%;
+}
+.form-contact__input--terco{
+    width: 31%;
+}
+.form-contact__input--quarto{
+    width: 25%;
+}
+.form-contact__input--textarea
+{
+
+    width: 100%;
+    resize: none;
+
+    height: 200px;
+    
+}
+
+.form-contact__linha2{
+    display: flex;
+   
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 15px;
+    
+}
+
+.form-contact__input--btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+}
+.bt12{
+    display: inline-block;
+    padding: 10px;
+    width: 25%;
+    margin: 10px 0 20px;
+    color: white;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    transition: opacity .4s;
+}
+
+.bt12:hover{
+    background-color: #006682;
+    opacity: 0.75;
 }
