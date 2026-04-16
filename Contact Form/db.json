@@ -1,0 +1,74 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "a title",
+      "views": 100
+    },
+    {
+      "id": "2",
+      "title": "another title",
+      "views": 200
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "text": "a comment about post 1",
+      "postId": "1"
+    },
+    {
+      "id": "2",
+      "text": "another comment about post 1",
+      "postId": "1"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "contatos": [
+    {
+      "id": "1",
+      "nome": "Laura",
+      "sobrenome": "Anacleto"
+    },
+    {
+      "id": "2",
+      "nome": "Larissa",
+      "sobrenome": "Lustosa"
+    },
+    {
+      "nome": "livia",
+      "sobrenome": "lanconi",
+      "id": "1lE3mMu004g"
+    },
+    {
+      "nome": "marcos",
+      "sobrenome": "vinicius",
+      "id": "-aK87m9fVS4"
+    },
+    {
+      "nome": "Eloysa",
+      "sobrenome": "Marques",
+      "id": "TO_GtX1bf0I"
+    },
+    {
+      "nome": "Hugo ",
+      "sobrenome": "Sales",
+      "email": "huguinhosales@gmail.com",
+      "pais": "+55",
+      "ddd": "11",
+      "telefone": "985162535",
+      "cep": "09972140",
+      "rua": "Rua André Mussolino",
+      "numeroCasa": "32",
+      "complemento": "casa 4",
+      "bairro": "Eldorado",
+      "cidade": "Diadema",
+      "estado": "São Paulo",
+      "anotacoes": "A procura de um emprego ",
+      "id": "bLwD7VWjnaA"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
