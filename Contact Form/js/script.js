@@ -7,7 +7,7 @@ function validarFormulario(){
     let email = document.getElementById("email");
     let pais = document.getElementById("pais");
     let ddd = document.getElementById("ddd");
-    let telefone = document.getElementById("telefone");
+    let telefone = document.getElementById("numero");
     let cep = document.getElementById("cep");
     let rua = document.getElementById("rua");
     let numeroCasa = document.getElementById("numeroCasa");
@@ -15,96 +15,104 @@ function validarFormulario(){
     let bairro = document.getElementById("bairro");
     let cidade = document.getElementById("cidade");
     let estado = document.getElementById("estado");
+    let anotacoes = document.getElementById("anotacoes");
 
-    if(!nome || nome.value.trim().length == 0){
+    if(nome.value.trim().length == 0){
         formError("nome");
         quantidadeErros++;
     }else{
         reiniciaBorda("nome");
     }
 
-    if(!sobrenome || sobrenome.value.trim().length == 0){
+    if(sobrenome.value.trim().length == 0){
         formError("sobrenome");
         quantidadeErros++;
     }else{
         reiniciaBorda("sobrenome");
     }
 
-    if(!email || email.value.trim().length == 0){
+    if(email.value.trim().length == 0){
         formError("email");
         quantidadeErros++;
     }else{
         reiniciaBorda("email");
     }
 
-    if(!pais || pais.value.trim().length == 0){
+    if(pais.value.trim().length == 0){
         formError("pais");
         quantidadeErros++;
     }else{
         reiniciaBorda("pais");
     }
 
-    if(!ddd || ddd.value.trim().length == 0){
+    if(ddd.value.trim().length == 0){
         formError("ddd");
         quantidadeErros++;
     }else{
         reiniciaBorda("ddd");
     }
 
-    if(!telefone || telefone.value.trim().length == 0){
-        formError("telefone");
+    if(telefone.value.trim().length == 0){
+        formError("numero");
         quantidadeErros++;
     }else{
-        reiniciaBorda("telefone");
+        reiniciaBorda("numero");
     }
 
-    if(!cep || cep.value.trim().length == 0){
+    if(cep.value.trim().length == 0){
         formError("cep");
         quantidadeErros++;
     }else{
         reiniciaBorda("cep");
     }
 
-    if(!rua || rua.value.trim().length == 0){
+    if(rua.value.trim().length == 0){
         formError("rua");
         quantidadeErros++;
     }else{
         reiniciaBorda("rua");
     }
 
-    if(!numeroCasa || numeroCasa.value.trim().length == 0){
+    if(numeroCasa.value.trim().length == 0){
         formError("numeroCasa");
         quantidadeErros++;
     }else{
         reiniciaBorda("numeroCasa");
     }
 
-    if(!complemento || complemento.value.trim().length == 0){
+    if(complemento.value.trim().length == 0){
         formError("complemento");
         quantidadeErros++;
     }else{
         reiniciaBorda("complemento");
     }
 
-    if(!bairro || bairro.value.trim().length == 0){
+    if(bairro.value.trim().length == 0){
         formError("bairro");
         quantidadeErros++;
     }else{
         reiniciaBorda("bairro");
     }
 
-    if(!cidade || cidade.value.trim().length == 0){
+    if(cidade.value.trim().length == 0){
         formError("cidade");
         quantidadeErros++;
     }else{
         reiniciaBorda("cidade");
     }
 
-    if(!estado || estado.value.trim().length == 0){
+    if(estado.value.trim().length == 0){
         formError("estado");
         quantidadeErros++;
     }else{
         reiniciaBorda("estado");
+    }
+
+    if(anotacoes.value.trim().length == 0){
+        formError("anotacoes");
+        quantidadeErros++;
+    }else{
+        reiniciaBorda("anotacoes");
     }
 
     if(quantidadeErros > 0){
