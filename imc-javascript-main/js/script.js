@@ -83,7 +83,7 @@ async function cadastrarAPI(objCadastro) {
       return dadosGravados;
    } catch (error) {
       console.log(error)
-       return await {error: "Não foi possível cadastrar os dados"}
+       return {error: "Não foi possível cadastrar os dados"}
       
    }
 }

@@ -30,7 +30,6 @@
   "frutas": [],
   "jogos": [],
   "imc": [
-    
     {
       "nome": "lorenzo",
       "altura": 1.7,
@@ -39,7 +38,6 @@
       "situacao": "Sobrepeso",
       "id": "DxvEviKD5pQ"
     },
-    
     {
       "nome": "livia",
       "altura": 1.4,
@@ -56,7 +54,6 @@
       "situacao": "Sobrepeso",
       "id": "cYebfYiX2GE"
     },
-    
     {
       "nome": "Kauany",
       "altura": 1.7,
@@ -65,7 +62,6 @@
       "situacao": "Saudável",
       "id": "FustVZlH3oY"
     },
-  
     {
       "nome": "aline",
       "altura": 1.6,
@@ -81,6 +77,22 @@
       "IMC": 21.484374999999996,
       "situacao": "Saudável",
       "id": "WrCXp66eLcA"
+    }
+  ],
+  "calculadora": [
+    {
+      "n1": 12,
+      "n2": 3,
+      "op": "soma",
+      "resultado": "15.00",
+      "id": "IBUpqwBjC1I"
+    },
+    {
+      "n1": 11,
+      "n2": 4,
+      "op": "subtracao",
+      "resultado": "7.00",
+      "id": "fYSB0-xG-0A"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
