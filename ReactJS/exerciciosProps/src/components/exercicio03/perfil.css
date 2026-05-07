@@ -1,0 +1,9 @@
+.perfil {
+    background-color: lightskyblue;
+    border: 3px dashed black;
+    border-radius: 5px;
+    width: 300px;
+    /* display: center;
+    align-items: center ; */
+    color: black;
+}
