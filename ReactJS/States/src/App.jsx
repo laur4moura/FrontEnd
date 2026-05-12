@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Contador from "./components/contator/contador";
+import CadFruta from "./components/cadFruta/cadFruta";
+import CicloDeVida from "./components/ciclodevida/ciclodevida";
 
 function App () {
   //objeto privado
@@ -15,17 +17,25 @@ function App () {
 
   return (
     <>
-    <h1>{nome} Page</h1>
+    {/* <h1>{nome} Page</h1>
     <button onClick={trocarTexto}>Mudar Texto</button>
     <button onClick={() => {return setNome("Yahoo")}}>Mudar Texto</button>
 
     <br />
     <input type="text" onBlur={fuiAbandonado} onChange={(evento) => setNome(evento.target.value)}/>
 
-    <Contador />
+    <Contador /> */}
+
+    {/* <CadFruta /> */}
+
+    <button onClick={()=> {
+      setMostrar(!mostrar);
+    }}>Mostrar /Ocultar
+    </button>
+    {mostrar && <CicloDeVida />}
 
     </>
   );
 }
 
-export default App
+export default App;
