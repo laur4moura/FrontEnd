@@ -1,6 +1,33 @@
 {
-    "frutas" : [
-        {"id": 1, "nome": "Banana", "quantidade": 10},
-        {"id": 2, "nome": "Maçã", "quantidade": 5}
-    ]
+  "produtos": [
+    {
+      "titulo": "laura",
+      "descricao": "eu sou linda",
+      "preco": "40.90",
+      "imagem": "https://th.bing.com/th/id/OIP.GGjcp23lyXT7URZTuYSp1gHaE8?r=0&o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
+      "id": "BYRdzy_QK-8"
+    },
+    {
+      "titulo": "laura + aura",
+      "descricao": "eu tenho muita",
+      "preco": "8000",
+      "imagem": "https://as2.ftcdn.net/v2/jpg/04/19/06/09/1000_F_419060908_aAvXZNTCXvEOcSkcbqt1IX9EDZc9sMHI.jpg",
+      "id": "vCpddv2XAws"
+    },
+    {
+      "titulo": "eu amo",
+      "descricao": "o que?",
+      "preco": 0,
+      "imagem": "https://st.lapismagico.com/nomes/01/emily-nome-crianca.png",
+      "id": "jbbYu9-Uoys"
+    },
+    {
+      "titulo": "eu amo",
+      "descricao": "o que?",
+      "preco": "021",
+      "imagem": "hero.png",
+      "id": "Bs0-TJ2meU0"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

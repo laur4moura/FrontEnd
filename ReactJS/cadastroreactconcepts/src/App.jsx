@@ -1,26 +1,23 @@
-
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import HomePage from './pages/home/homepage'
 import QuemSomosPage from './pages/quemsomos/quemsomospage'
-import CadastroFrutasPage from './components/cadastrofrutas/cadastrofrutaspage'
+import CadastroFrutas from './components/cadastrofrutas/cadastrofrutaspage'
+import { ProdutosPage } from './components/produtos/produtospage'
 import Header from './components/header/header'
-import ProdutosPage  from './components/produtos/produtospage'
 
 function App() {
-  return (
+  return(
     <>
-    <BrowserRouter>
-    <Header/>
-    <Routes>
-      <Route  element={<HomePage/>} path="/" />
-      <Route  element={<ProdutosPage/>} path="/produtos" />
-      <Route  element={<QuemSomosPage/>}path="/quemsomos" />
-      <Route  element={<CadastroFrutasPage/>}path="/cadastrofrutas" />
-    </Routes>
-    </BrowserRouter>
-
-    
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route element={<HomePage />} path="/" />
+          <Route element={<QuemSomosPage />} path="/quemsomos" />
+          <Route element={<CadastroFrutas />} path="/cadastrofrutas" />
+          <Route element={<ProdutosPage />} path="/produtos" />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }

@@ -1,148 +1,263 @@
-import "./produtospage.css";
-import { useState } from "react";
+import "./produtospage.css"
+import fotoProduto from "./images/hero.png"
+import { useEffect, useState } from "react"
+import axios from "axios"
+import api from "../../Services/service"
 
-import oleoImg from "../../assets/oleo.jpg";
-import calcinhaImg from "../../assets/calcinha.jpg";
 
-function ProdutosPage() {
 
-    const [titulo, setTitulo] = useState("");
-    const [descricao, setDescricao] = useState("");
-    const [preco, setPreco] = useState(0);
-    const [imagem, setImagem] = useState("");
+export const ProdutosPage = () => {
+    const [listaProdutos, setListaProdutos] = useState([])
 
-    const [arrProdutos, setArrProdutos] = useState([
-        {
-            id: 1,
-            titulo: "Oléo",
-            descricao: "Oléo capilar",
-            preco: 5.99,
-            imagem: oleoImg
-        },
+    //states
+    const [id, setId] = useState("");
+    const [preco, setPreco] = useState(0)
+    const [descricao, setDescricao] = useState("")
+    const [imagem, setImagem] = useState("hero.png")
+    const [titulo, setTitulo] = useState("")
+    const [editar, setEditar] = useState(false)
 
-        {
-            id: 2,
-            titulo: "Calcinha",
-            descricao: "calcinha branca - fio dental",
-            preco: 3.49,
-            imagem: calcinhaImg
+    //function
+    const getDados = async () => {
+        try {
+            const retornoAPI = await api.get(`/produtos`)
+            const dados = await retornoAPI.data;
+            setListaProdutos(dados)
+        } catch (erro) {
+            console.log(erro)
         }
-    ]);
+    }
 
-    function CadastrarProduto(e) {
+    //carregar
+    useEffect(() => {
+        getDados()
+    }, [])
 
-        e.preventDefault();
+    const cadastrarProduto = async (e) => {
+        e.preventDefault()
 
-        setArrProdutos([
-            ...arrProdutos,
+        // alert("Função Cadastrar chamada")
+        // return false
 
-            {
-                id: Date.now(),
-                titulo: titulo,
-                descricao: descricao,
-                preco: preco,
-                imagem: imagem
+        //Não permite o formulario seja postado
+        // validar os dados
+        // cadastrar na api
+        // chamar a lista novamente
+        // ou então, jogar o novo cadastro na listaProdutos
+
+        if (titulo.trim().length == 0 || descricao.trim().length == 0 || isNaN(preco)) {
+            alert("Preencha todos os campos corretamente")
+            return false
+        }
+
+        const objProduto = {
+
+            titulo: titulo,
+            descricao: descricao,
+            preco: preco,
+            imagem: imagem
+
+            // isso é igual a:
+            // titulo,
+            // descricao,
+            // preco,
+            // imagem
+            // Caso eles tenha os mesmos nomes em albos os lugarese
+        }
+        console.log(objProduto)
+        const retornoAPI = await axios.post("http://localhost:3000/produtos",objProduto)
+        const objetoRetornado = await retornoAPI.data;
+
+        setListaProdutos([...listaProdutos, objetoRetornado])
+
+        limparCadastro();
+
+    }
+
+    function limparCadastro() {
+        setTitulo("")
+        setDescricao("")
+        setPreco(0)
+        setImagem("")
+    }
+
+    //Deletar
+       const deletar = async (id) => {
+        if (!confirm("Você realmente quer apagar o produto")) {
+            return false
+        }
+        try{
+            const retornoAPI = await axios.delete("http://localhost:3000/produtos/${id}")
+
+            //Gera a lista de produtos que não foram apagados
+            const novaLista = listaProdutos.filter((prod) => {
+                return prod.id != id
+            })
+
+            if(retornoAPI.status == 200 && retornoAPI.statusText == "OK"){
+                alert("Produto apagado com sucesso!")
+            } else {
+                alert("Erro ao cadastar o produto")
             }
-        ]);
-
-        limparCampos();
+            setListaProdutos(novaLista)
+            getDados()
+        } catch (erro){}
     }
 
-    function limparCampos() {
-        setTitulo("");
-        setDescricao("");
-        setPreco(0);
-        setImagem("");
+    const editarProduto = async (e) => {
+    e.preventDefault()
+
+    if (
+        titulo.trim().length == 0 ||
+        descricao.trim().length == 0 ||
+        isNaN(preco)
+    ) {
+        alert("Preencha todos os campos corretamente")
+        return
     }
 
-    return (
+    const objEditarProduto = {
+        titulo: titulo,
+            descricao: descricao,
+            preco: preco,
+            imagem: imagem
+    }
 
-        <section className="produtos">
+    try {
+        const retornoAPI = await axios.put(`http://localhost:3000/produtos/${id}`, objEditarProduto)
 
-            <h1 className="titulo-texto">Produtos</h1>
+        console.log(retornoAPI)
 
-            <form onSubmit={CadastrarProduto}>
+        const objetoEditarRetornado = await retornoAPI.data
 
-                <fieldset className="linha">
+        if (retornoAPI.status == 200) {
 
-                    <label className="titulo">Título:</label>
+            const novaLista = listaProdutos.map((prod) => {
+                if (prod.id == id) {
+                    return objetoEditarRetornado
+                }
+                return prod
+            })
 
-                    <input
-                        
-                        type="text"
-                        placeholder="Titulo"
-                        onChange={(e) =>
-                            setTitulo(e.target.value)}
-                            required
-                    />
+            getDados()
 
-                    <label className="descricao">Descrição:</label>
+            setListaProdutos(novaLista)
+            setEditar(false)
 
-                    <input
-                        type="text"
-                        placeholder="descricao"
-                        onChange={(e) =>
-                            setDescricao(e.target.value)}
-                            required
-                    />
+            alert("Produto editado com sucesso!")
+        } else {
+            alert("Erro ao editar produto")
+        }
 
-                    <label className="preco-texto">Preço:</label>
-
-                    <input
-                        type="number"
-                        placeholder="preco"
-                        onChange={(e) =>
-                            setPreco(parseFloat(e.target.value))}
-                            required
-                    />
-
-                    <label className="imagem">Imagem:</label>
-
-                    <input
-                        type="text"
-                        placeholder="Cole a URL da imagem"
-                        onChange={(e) =>
-                            setImagem(e.target.value)}
-                            required
-                    />
-
-                    <button className="cadastrar_botao" type="submit">
-                        Cadastrar
-                    </button>
-
-                </fieldset>
-
-            </form>
-
-            {/* CARDS */}
-
-            <div className="container-cards">
-
-                {arrProdutos.map((p) => (
-
-                    <div className="card" key={p.id}>
-
-                        <img
-                            src={p.imagem}
-                            alt={p.titulo}
-                        />
-
-                        <h2>{p.titulo}</h2>
-
-                        <p>{p.descricao}</p>
-
-                        <span className="preco">
-                            R$ {p.preco}
-                        </span>
-
-                    </div>
-
-                ))}
-
-            </div>
-
-        </section>
-    );
+    } catch (error) {
+        alert("Servidor fora do ar! " + error)
+    }
 }
 
-export default ProdutosPage;
+
+
+    return (
+        <div className="produtos-page">
+            <h1>Cosméticos</h1>
+
+            <form action="" onSubmit={editar ? editarProduto : cadastrarProduto}>
+                <fieldset className="cadastro-caixa">
+                    <div className="linha">
+                        <label htmlFor="titulo"></label>
+                        <input className="input-produto"
+                            type="text"
+                            placeholder="titulo"
+                            value={titulo}
+                            id="titulo" onChange={(e) => {
+                                setTitulo(e.target.value)
+                            }} />
+                    </div>
+                    <div className="linha">
+                        <label htmlFor="preco"></label>
+                        <input className="input-produto"
+                            type="text"
+                            placeholder="preco"
+                            value={isNaN(preco) ? 0 : preco}
+                            id="preco" onChange={(e) => {
+                                setPreco(e.target.value)
+                            }} />
+                    </div>
+                    <div className="linha">
+                        <label htmlFor="descricao"></label>
+                        <input className="input-produto"
+                            type="text"
+                            placeholder="descricao"
+                            value={descricao}
+                            id="descricao" onChange={(e) => {
+                                setDescricao(e.target.value)
+                            }} />
+                    </div>
+                    <div className="linha">
+                        <label htmlFor="img"></label>
+                        <input className="input-produto"
+                            type="text"
+                            placeholder="img"
+                            value={imagem}
+                            id="img" onChange={(e) => {
+                                setImagem(e.target.value)
+                            }} />
+                    </div>
+                    <br />
+                    {editar ? (
+                        <>
+                            <button
+                                className="bnt-editar"
+                                onClick={() => {
+                                }}>Editar</button>
+
+                            <button className="bnt-cancelar"
+                                onClick={() => {
+                                    setEditar(false)
+                                    limparCadastro()
+
+                                }}>Cancelar</button>
+                        </>
+
+
+                    )
+                        :
+                        (
+
+                            <button className="bnt-cadastrar"
+                            >Cadastrar</button>
+                        )}
+
+                </fieldset>
+            </form>
+
+            <br />
+            <section className="lista-produtos">
+                {listaProdutos.map((p) => {
+                    return (
+                        <article key={p.id} className="card-produto">
+                            <img className="foto-produto" src={p.imagem} alt="" />
+                            <h2>{p.titulo}</h2>
+                            <p>{p.preco}</p>
+                            <p>{p.descricao}</p>
+                            <a className="botao-exeed" href="" onClick={(e) => {
+                                e.preventDefault()
+                                deletar(p.id)
+                            }}>Apagar</a>
+
+                            <a className="botao-exeed" href="" onClick={(e) => {
+                                e.preventDefault()
+                                setId(p.id)
+                                setEditar(true)
+                                setTitulo(p.titulo)
+                                setDescricao(p.descricao)
+                                setPreco(p.preco)
+                                setImagem(p.imagem)
+
+                            }}>Editar</a>
+                        </article>
+                    )
+                })}
+            </section>
+        </div>
+    )
+}
