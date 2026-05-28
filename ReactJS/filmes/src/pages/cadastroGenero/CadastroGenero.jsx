@@ -205,6 +205,7 @@ const getGeneros = async  () => {
             setValor={setValor}
             funcCadastro={editar ? editarGenero : cadastrarGenero}
             btnEditar={editar}
+            
 
             />
 
