@@ -8,20 +8,29 @@ const Perfil = () => {
 const { usuario, setUsuario } = useContext(UsuarioContext);
 const [novoUsuario, setNovoUsuario] = useState("");
 
+const login = () => {
+  localStorage.setItem("usuario", JSON.stringify(novoUsuario));
+  setUsuario(novoUsuario);
+  setNovoUsuario("");
+}
+
   return (
     <div>
-    <h1>Pagina Perfil ({usuario})</h1>
+    <h2>Pagina Perfil ({usuario})</h2>
 
     <input type="text" 
     placeholder="digite o novo usuário"
+    value={novoUsuario}
     onChange={(e) => {
       setNovoUsuario(e.target.value)
     }}
     />
 
       <button
-        onClick={() => {setUsuario(novoUsuario)}}>
-        Trocar Usuário
+        onClick={() => {
+          login()
+          }}>
+        Entrar
       </button>
       <p>Novo Usuario: <strong>{novoUsuario}</strong></p>
     </div>

@@ -5,7 +5,13 @@ import { UsuarioContext } from "../context/UsuarioContext";
 
 
 const Header = () => {
-  const {usuario} = useContext(UsuarioContext);
+  const {usuario, setUsuario} = useContext(UsuarioContext);
+
+  const logout = () => {
+    setUsuario(null);
+    localStorage.setItem("usuario", null);
+  }
+
   return (
     <header>
       <nav>
@@ -16,7 +22,12 @@ const Header = () => {
         <Link to={"/listar-produto"}>Listar Produto</Link>
 
       </nav>
-      <h2>Bem-vindo, {usuario}</h2>
+      <h2>Bem-vindo, {usuario ? usuario : "Visitante" }
+        <button
+        onClick ={() => logout()}>
+          Sair
+        </button>
+      </h2>
     </header>
   )
 }
