@@ -1,67 +1,115 @@
 import Logo from "../../assets/img/logo.svg";
 import "./Login.css";
 import Botao from "../../components/botao/Botao.jsx";
-import { useContext, useState } from "react";
-import { UsuarioContext } from "../../context/UsuarioContext";
+
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UsuarioContext } from "../../components/context/UsuarioContext.jsx";
+import api from "../../services/services.js";
+import{Alerta} from "../../components/alerta/Alerta.jsx";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
-    const { setUsuario } = useContext(UsuarioContext);
 
-    const [novoUsuario, setNovoUsuario] = useState("");
+    const { setUsuario } = useContext(UsuarioContext);
+    const navigate = useNavigate();
+
+    const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
-    const login = () => {
-        localStorage.setItem("usuario", JSON.stringify(novoUsuario));
-        setUsuario(novoUsuario);
-        setNovoUsuario("");
-        setSenha("");
+    const login = async () => {
+    
+
+        if (email.trim().length === 0 || senha.trim().length === 0) {
+            Alerta({
+                title: "Login",
+                text: "Preencha todos os campos",
+                icon: "warning",
+                confirmButtonText: "OK"
+            })
+            return;
+
+        }
+
+        const dadosLogin = {
+            email: email,
+            senha: senha
+        }
+
+        try {
+            const retornoAPI = await api.post("/Login", dadosLogin)
+            // console.log(retornoAPI.data);
+            const token = await retornoAPI.data.token;
+            const usuarioDecode = jwtDecode(token);
+            setUsuario(usuarioDecode);
+            localStorage.setItem("usuario", JSON.stringify(usuarioDecode));
+            setEmail("");
+            setSenha("");
+
+            navigate("/filmes");
+
+        } catch (error) {
+            Alerta({
+                title: "Login",
+                text: "Usuario nao encontrado",
+                icon: "error",
+                confirmButtonText: "OK"
+            })
+        }
     };
 
-    return(
+    const verificaLogin = () => {
+        const logado = JSON.parse(localStorage.getItem("usuario"));
+
+        if (logado != undefined || logado != null) {
+            setUsuario(logado);
+            navigate("/filmes");
+        }
+    };
+
+    useEffect(() => {
+        verificaLogin();
+    }, [])
+
+    return (
         <main className="main_login">
-          <div className="banner"></div>
+            <div className="banner"></div>
 
-          <section className="section_login">
-            <img src={Logo} alt="Logo do Filmoteca"/>
+            <section className="section_login">
+                <img src={Logo} alt="Logo do Filmoteca" />
 
-            <form
-              className="form_login"
-              onSubmit={(e) => {
-                e.preventDefault();
-                login();
-              }}
-            >
-                <h1>Login</h1>
+                <form className="form_login" onSubmit={login}>
+                    <h1>Login</h1>
 
-                <div className="campos_login">
-                    <div className="campo_input">
-                        <label htmlFor="email">Email:</label>
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Digite seu e-mail"
-                            value={novoUsuario}
-                            onChange={(e) => setNovoUsuario(e.target.value)}
-                        />
+                    <div className="campos_login">
+
+                        <div className="campo_input">
+                            <label htmlFor="email">Email:</label>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Digite seu e-mail"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="campo_input">
+                            <label htmlFor="senha">Senha:</label>
+                            <input
+                                type="password"
+                                name="senha"
+                                placeholder="Digite sua senha"
+                                value={senha}
+                                onChange={(e) => setSenha(e.target.value)}
+                            />
+                        </div>
+
                     </div>
 
-                    <div className="campo_input">
-                        <label htmlFor="senha">Senha:</label>
-                        <input
-                            type="password"
-                            name="senha"
-                            placeholder="Digite sua senha"
-                            value={senha}
-                            onChange={(e) => setSenha(e.target.value)}
-                        />
-                    </div>
-                </div>
-
-                <div onClick={login}>
-                    <Botao nomeDoBotao="Entrar" />
-                </div>
-            </form>
-          </section>
+                    <Botao nomeDoBotao="Entrar" btnLogin={true} fnLogin={login} />
+                </form>
+            </section>
         </main>
     );
 };

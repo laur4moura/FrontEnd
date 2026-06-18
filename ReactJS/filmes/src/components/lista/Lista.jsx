@@ -4,6 +4,7 @@ import "./Lista.css";
 import Editar from "../../assets/img/pen-to-square-solid.svg";
 import Excluir from "../../assets/img/trash-can-regular.svg";
 import faltadecartaz from "../../assets/img/imagem preta.webp"
+import Visualizar from "../../assets/img/eye.svg";
 
 const Lista = (props) => {
     return (
@@ -23,6 +24,9 @@ const Lista = (props) => {
                                 <th>Nome</th>
                                 <th style={{ display: props.visibilidade }}>Gênero</th>
                                 <th>Editar</th>
+
+                                {props.fnResumo && <th>Resumo</th>}
+
                                 <th>Excluir</th>
                             </tr>
                         </thead>
@@ -56,6 +60,15 @@ const Lista = (props) => {
                                                 <img src={Editar} alt="Caneta" />
                                             </button>
                                         </td>
+
+                                        {/* vizualizar resumo */}
+                                        {props.fnResumo && (
+                                            <td data-cell="Vizualizar">
+                                                <button className="icon" onClick={() => (props.fnResumo(item))}>
+                                                    <img src={Visualizar} alt="Olho" />
+                                                </button>
+                                            </td>
+                                        )}
                                         <td data-cell="Excluir">
                                             <button className="icon" onClick={() => props.funcExcluir(item)}>
                                                 <img src={Excluir} alt="Lixeira" />
